@@ -4,14 +4,12 @@ import java.util.List;
 
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 public class Marque {
 	private long id;
 	private String code;
 	private String libelle;
-	@JsonIgnore
 	private List<Machine> machines;
 	
 	public Marque() {

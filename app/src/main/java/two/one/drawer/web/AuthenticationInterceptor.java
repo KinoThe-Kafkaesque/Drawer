@@ -9,21 +9,22 @@ import okhttp3.Response;
 
 public class AuthenticationInterceptor implements Interceptor {
 
-    private String authToken;
+    private String credentials;
 
-    public AuthenticationInterceptor(String token) {
-        this.authToken = token;
+    public AuthenticationInterceptor(String username, String password) {
+        this.credentials = Credentials.basic(username, password);
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request original = chain.request();
-
-        Request.Builder builder = original.newBuilder()
-                .header("Authorization", authToken);
-
-        Request request = builder.build();
-        return chain.proceed(request);
+        Request request = chain.request();
+        Request authenticatedRequest = request.newBuilder()
+                .header("Authorization", credentials)
+                .build();
+        return chain.proceed(authenticatedRequest);
     }
 }
+
+
+
 

@@ -37,26 +37,21 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login(View view) {
         LoginController loginController =
-                RetrofitSettings.getRetrofit().create(LoginController.class);
+                RetrofitSettings.getRetrofit(username.getText().toString(), password.getText().toString()).create(LoginController.class);
         Call<User> call = loginController.login(username.getText().toString(), password.getText().toString());
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                System.out.println(response.body().toString());
-                if (response.isSuccessful()) {
-                    User user = response.body();
                     System.out.println("hellohellohellohellohellohellohellohellohellohello");
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
-            }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                t.printStackTrace();
-                System.out.println(call.request().body());
-            }
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                t.printStackTrace()  ;
+                }
 
         });
 

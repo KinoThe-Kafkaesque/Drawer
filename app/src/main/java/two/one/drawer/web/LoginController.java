@@ -15,9 +15,8 @@ import two.one.drawer.entities.User;
 
 
 public interface LoginController {
-    @FormUrlEncoded
     @POST("/login")
-    Call<User> login(@Field("username") String user, @Field("password") String pwd);
+    Call<User> login(@Query("username") String user, @Query("password") String pwd);
 
 
     @POST("logout")
